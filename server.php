@@ -46,7 +46,7 @@
 
 		if(!isset($_GET['search'])) {
 
-			$db->select3(" rezervacija", 'Film.NazivFilma, Film.Trajanje, Sala.BrojMesta-count(rezervacija.filmID) AS BrojSlobodnih,Film.Cena,Rezervacija.Datum,Rezervacija.RezervacijaID', "film", "filmID", "filmID", "sala", "salaID","salaID", null, null,null);
+			$db->select3(" rezervacija", 'Film.NazivFilma, Film.Trajanje, 225-count(kupovina.rezervacijaID) AS BrojSlobodnih,Film.Cena,Rezervacija.Datum,Rezervacija.RezervacijaID', "film", "filmID", "filmID", "kupovina", "rezervacijaID","rezervacijaID", null, null,"rezervacijaID");
 			$niz = array();
 			while($red = $db->getResult()->fetch_object()) {
 				$niz[] = $red;
@@ -143,7 +143,7 @@
 		}
 	});
 
-	Flight::route('GET /film/@filmID.json', function($filmID) {
+	Flight::route('GET /film1/@filmID.json', function($filmID) {
 		header("Content-Type: application/json; charset=utf-8");
 		$db = Flight::db();
 		$db->select(" film ", ' * ',  "reziser", "ReziserID", "ReziserID", "film.FilmID = ". $filmID, null);
@@ -247,7 +247,7 @@ Flight::route('GET /korisnik.json', function() {
 					$v = "'". $v ."'";
 					$podaci_query[$k] = $v;
 				}
-				if($db->insert("film","NazivFilma,Trajanje,Cena,ReziserID",array($podaci_query['NazivFilma'], $podaci_query['Trajanje'],$podaci_query['Cena'],$podaci_query['ReziserID']))) {
+				if($db->insert("film","NazivFilma,Trajanje,ReziserID,Cena",array($podaci_query['NazivFilma'], $podaci_query['Trajanje'],$podaci_query['ReziserID'],$podaci_query['Cena']))) {
 					$odgovor["poruka"] = "Uspešno ste dodali novu knjigu!";
 					$json_odgovor = json_encode($odgovor,JSON_UNESCAPED_UNICODE);
 					echo $json_odgovor;
@@ -342,8 +342,8 @@ Flight::route('GET /korisnik.json', function() {
 		header("Content-Type: application/json; charset=utf-8");
 		$db = Flight::db();
 
-		if (!isset($_GET['pisac'])) {
-			$db->select(" knjiga ", ' * ', "pisac", "pisacID", "pisacID", null, null);
+		if (!isset($_GET['reziser'])) {
+			$db->select(" film ", ' * ', "reziser", "ReziserID", "ReziserID", null, null);
 			$niz = array();
 			while($red = $db->getResult()->fetch_object()) {
 				$niz[] = $red;
@@ -351,14 +351,14 @@ Flight::route('GET /korisnik.json', function() {
 			$json_niz = json_encode($niz,JSON_UNESCAPED_UNICODE);
 			$JSONprikaz = '{  "cols": [{"label":"Knjiga","type":"string"}, {"label":"Stanje","type":"number"}], "rows":[ ';
 			foreach($niz as $key => $value) {
-				$JSONprikaz = $JSONprikaz .'{"c":[{"v":"'. $value->knjigaNaziv .'"},{"v":'. $value->knjigaStanje .'}]},';
+				$JSONprikaz = $JSONprikaz .'{"c":[{"v":"'. $value->NazivFilma .'"},{"v":'. $value->Trajanje .'}]},';
 			}
 			echo $JSONprikaz .']}';
 			return false;
 		}
 		else {
-			$pisac = $_GET['pisac'];
-			$db->select(" knjiga ", ' * ', "pisac", "pisacID", "pisacID", "knjiga.pisacID=". $pisac, null);
+			$reziser = $_GET['reziser'];
+			$db->select(" film ", ' * ', "reziser", "reziserID", "reziserID", "reziser.ReziserID=". $reziser, null);
 			$niz = array();
 			while($red = $db->getResult()->fetch_object()) {
 				$niz[] = $red;
@@ -366,7 +366,7 @@ Flight::route('GET /korisnik.json', function() {
 			$json_niz = json_encode($niz,JSON_UNESCAPED_UNICODE);
 			$JSONprikaz = '{  "cols": [{"label":"Knjiga","type":"string"}, {"label":"Stanje","type":"number"}], "rows":[ ';
 			foreach($niz as $key => $value) {
-				$JSONprikaz = $JSONprikaz .'{"c":[{"v":"'. $value->knjigaNaziv .'"},{"v":'. $value->knjigaStanje .'}]},';
+				$JSONprikaz = $JSONprikaz .'{"c":[{"v":"'. $value->NazivFilma .'"},{"v":'. $value->Trajanje .'}]},';
 			}
 			echo $JSONprikaz .']}';
 			return false;
