@@ -62,9 +62,9 @@ function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1="
                 $q .= ' JOIN '.$join_table.' ON '.$table.'.'.$join_key1.' = '.$join_table.'.'.$join_key2;
             
              if($join_table2 !=null)
-                $q .= ' JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
+                $q .= ' LEFT JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
                 if($join_table3 !=null)
-                $q .= ' JOIN '.$join_table3.' ON '.$table.'.'.$join_key5.' = '.$join_table3.'.'.$join_key6;
+                $q .= ' LEFT JOIN '.$join_table3.' ON '.$table.'.'.$join_key5.' = '.$join_table3.'.'.$join_key6;
             if($where != null)  
                 $q .= ' WHERE '.$where;  
             if($order != null)  
