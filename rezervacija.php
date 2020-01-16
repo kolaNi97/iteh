@@ -11,10 +11,13 @@ require "korisnik/template/header.php";
                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:480px;">
 
                  <div class="post2">
+                 <?php
+   echo '<script>console.log('.$_SESSION['id'].')</script>';
+?>
                    <?php
                        if(isset($_GET['poruka'])) {
                            $staPrikazati = $_GET['poruka'];
-                           if($staPrikazati == "Uspešno ste kupili knjigu! ") {
+                           if($staPrikazati == "Uspešno ste rezervisali!") {
                            ?>    <div class="alert alert-info alert-dismissible" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                  <strong> <?php echo $staPrikazati  ?> </strong>
                                 </div>
@@ -31,7 +34,7 @@ require "korisnik/template/header.php";
 
 
                      <?php
-                         $url = 'http://localhost/projekat/knjiga.json';
+                         $url = 'http://localhost/projekat/rezervacija.json';
                          $curl = curl_init($url);
                          curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                          curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -45,23 +48,25 @@ require "korisnik/template/header.php";
                          <table id="listaKnjiga">
                              <thead>
                                  <tr>
-                                     <th>Naziv knjige</th>
-                                     <th>Izdanje</th>
-                                     <th>Stanje(kom)</th>
+                                     <th>Naziv filma</th>
+                                     <th>Trajanje</th>
+                                     <th>Broj slobodnih mesta</th>
 									 <th>Cena(RSD)</th>
-                                     <th>Ime i prezime pisca</th>
+                                     <th>Vreme</th>
                                      <th>Kupovina</th>
                                  </tr>
                              </thead>
                              <tbody id="ajaxPodaci">
                                  <?php
-                                     foreach($json_objekat->knjiga as $knjiga) {
+                                     foreach($json_objekat->rezervacija as $rezervacija) {
                                          echo "<tr>
-                                                 <td>$knjiga->knjigaNaziv</td>
-                                                 <td>$knjiga->knjigaIzdanje</td>
-                                                 <td>$knjiga->knjigaStanje</td>
-												                        <td>$knjiga->knjigaCena</td>
-                                                 <td>$knjiga->pisacIme $knjiga->pisacPrezime</td>";
+                                                 <td>$rezervacija->NazivFilma</td>
+                                                 <td>$rezervacija->Trajanje</td>
+                                                 <td>$rezervacija->BrojSlobodnih</td>
+                                                 <td>$rezervacija->Cena</td>
+                                                 <td>$rezervacija->Datum</td>
+
+                                                 ";
 
               if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                           if($_SESSION['status']=='Admin'){
@@ -70,9 +75,7 @@ require "korisnik/template/header.php";
                                      }
 
                           else{
-                              $dugme=0;
-
-
+                             
                               $urlZaSB = 'http://localhost/projekat/kupovina.json';
                               $curlZaSB = curl_init($urlZaSB);
                               curl_setopt($curlZaSB, CURLOPT_RETURNTRANSFER, true);
@@ -82,29 +85,10 @@ require "korisnik/template/header.php";
                               curl_close($curlZaSB);
                               $odgovorOdServisa = json_decode($curl_odgovorSB);
 
-                              foreach($odgovorOdServisa->kupovina as $kupovina) {
-
-                                if($kupovina->knjigaID==$knjiga->knjigaID){
-                                        echo " <td><button  class='btn btn-primary disabled'>Kupi</button></td>
-                                             </tr>";
-                                             $dugme=1;
-
-                                }
-                            }
-
-                                  if($dugme==0){
-
-                                    echo " <td><a href='ubaciKupovinu.php?knjigaID=". $knjiga->knjigaID ."'><button  class='btn btn-primary'>Kupi</button></a></td>
-                                             </tr>";
-
-                                      }
+                                    echo " <td><a href='ubaciKupovinu.php?rezervacijaID=". $rezervacija->RezervacijaID ."'><button  class='btn btn-primary'>Kupi</button></a></td>
+                                             </tr>";                                    
                                      }
-                                   }
-                                   else{
-                                    echo " <td><button  class='btn btn-primary disabled'>Kupi</button></td>
-                                             </tr>";
-                                           }
-
+                                   }                          
                                  }
                                  ?>
                              </tbody>

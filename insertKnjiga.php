@@ -37,19 +37,19 @@ require "admin/template/header.php"; ?>
 <br><br>
               <form id="form" class="form-horizontal" method="POST" action="insert.php">
                 <div class="form-group">
-                  <label for="knjigaNaziv" class="col-sm-2  control-label">Naziv:</label>
+                  <label for="knjigaNaziv" class="col-sm-2  control-label">Naziv filma:</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" name="knjigaNaziv" placeholder="Unesite naziv knjige..." id="knjigaNaziv">
+                    <input type="text" class="form-control" name="NazivFilma" placeholder="Unesite naziv knjige..." id="knjigaNaziv">
                   </div>
                 </div>
 
                   <div class="form-group">
-                      <label for="pisac" class="col-sm-2  control-label">Pisac:</label>
+                      <label for="pisac" class="col-sm-2  control-label">Reziser:</label>
                       <div class="col-sm-8">
-                      <select id="pisac" class="form-control" name="pisac">
+                      <select id="Reziser" class="form-control" name="Reziser">
                           <option value=''></option>
                           <?php
-                              $urlZaSB = 'http://localhost/projekat/pisac.json';
+                              $urlZaSB = 'http://localhost/projekat/reziser.json';
                               $curlZaSB = curl_init($urlZaSB);
                               curl_setopt($curlZaSB, CURLOPT_RETURNTRANSFER, true);
                               curl_setopt($curlZaSB, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -57,8 +57,8 @@ require "admin/template/header.php"; ?>
                               $curl_odgovorSB = curl_exec($curlZaSB);
                               curl_close($curlZaSB);
                               $odgovorOdServisa = json_decode($curl_odgovorSB);
-                              foreach($odgovorOdServisa->pisac as $pisac) {
-                                echo "<option value='$pisac->pisacID'>$pisac->pisacIme $pisac->pisacPrezime</option>";
+                              foreach($odgovorOdServisa->reziser as $reziser) {
+                                echo "<option value='$reziser->reziserID'>$reziser->Ime $reziser->Prezime</option>";
 
                               }
                           ?>
@@ -68,25 +68,20 @@ require "admin/template/header.php"; ?>
                   </div>
 
                   <div class="form-group">
-                    <label for="knjigaIzdanje" class="col-sm-2  control-label">Izdanje:</label>
+                    <label for="Trajanje" class="col-sm-2  control-label">Trajanje:</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaIzdanje" placeholder="Unesite izdanje knjige..." id="knjigaIzdanje">
+                      <input type="text" class="form-control" name="Trajanje" placeholder="Unesite izdanje knjige..." id="Trajanje">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="knjigaStanje" class="col-sm-2  control-label">Stanje:</label>
+                    <label for="Cena" class="col-sm-2  control-label">Cena:</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaStanje" placeholder="Unesite stanje..."  id="knjigaStanje">
+                      <input type="text" class="form-control" name="Cena" placeholder="Unesite stanje..."  id="Cena">
                     </div>
                   </div>
 				  
-					<div class="form-group">
-                    <label for="knjigaCena" class="col-sm-2  control-label">Cena:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaSCena" placeholder="Unesite cenu..."  id="knjigaCena">
-                    </div>
-                  </div>
+	
 
 
 

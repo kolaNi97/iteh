@@ -36,8 +36,8 @@ require "admin/template/header.php"; ?>
               ?>
               <?php
                   $actual_link = "http://$_SERVER[HTTP_HOST]";
-                  $knjigaID = $_GET['knjigaID'];
-                  $url = 'http://localhost/projekat/knjige/'. $knjigaID .'.json';
+                  $filmID = $_GET['filmID'];
+                  $url = 'http://localhost/projekat/film/'. $filmID .'.json';
                   $curl = curl_init($url);
                   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -47,21 +47,21 @@ require "admin/template/header.php"; ?>
                   $k = json_decode($curl_odgovor);
               ?>
 <br><br>
-              <form id="form" class="form-horizontal" method="POST" action="update.php?knjigaID=<?php echo "$k->knjigaID";?>">
+              <form id="form" class="form-horizontal" method="POST" action="update.php?filmID=<?php echo "$k->FilmID";?>">
                 <div class="form-group">
-                  <label for="knjigaNaziv" class="col-sm-2  control-label">Naziv knjige:</label>
+                  <label for="NazivFilma" class="col-sm-2  control-label">Naziv filma:</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" name="knjigaNaziv" placeholder="Unesite naziv knjige..." id="knjigaNaziv"value="<?php echo "$k->knjigaNaziv";?>">
+                    <input type="text" class="form-control" name="NazivFilma" placeholder="Unesite naziv knjige..." id="knjigaNaziv"value="<?php echo "$k->NazivFilma";?>">
                   </div>
                 </div>
 
                   <div class="form-group">
-                      <label for="pisac" class="col-sm-2  control-label">Pisac:</label>
+                      <label for="pisac" class="col-sm-2  control-label">Reziser:</label>
                       <div class="col-sm-8">
-                      <select id="pisac" class="form-control" name="pisac">
+                      <select id="Reziser" class="form-control" name="Reziser">
                         <option value=''></option>
                         <?php
-                            $urlZaSB = 'http://localhost/projekat/pisac.json';
+                            $urlZaSB = 'http://localhost/projekat/reziser.json';
                             $curlZaSB = curl_init($urlZaSB);
                             curl_setopt($curlZaSB, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($curlZaSB, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -69,12 +69,12 @@ require "admin/template/header.php"; ?>
                             $curl_odgovorSB = curl_exec($curlZaSB);
                             curl_close($curlZaSB);
                             $odgovorOdServisa = json_decode($curl_odgovorSB);
-                            foreach($odgovorOdServisa->pisac as $pisac) {
-                                echo "<option value='$pisac->pisacID' ";
-                                if($k->pisacID == $pisac->pisacID) {
+                            foreach($odgovorOdServisa->reziser as $reziser) {
+                                echo "<option value='$reziser->ReziserID' ";
+                                if($k->ReziserID == $reziser->ReziserID) {
                                     echo "selected";
                                 }
-                                echo ">$pisac->pisacIme $pisac->pisacPrezime</option>";
+                                echo ">$reziser->Ime $reziser->Prezime</option>";
                             }
                         ?>
                       </select>
@@ -83,36 +83,25 @@ require "admin/template/header.php"; ?>
                   </div>
 
                   <div class="form-group">
-                    <label for="knjigaIzdanje" class="col-sm-2  control-label">Izdanje:</label>
+                    <label for="knjigaIzdanje" class="col-sm-2  control-label">Trajanje:</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaIzdanje" placeholder="Unesite izdanje knjige..." id="knjigaIzdanje"value="<?php echo "$k->knjigaIzdanje";?>">
+                      <input type="text" class="form-control" name="Trajanje" placeholder="Unesite izdanje knjige..." id="knjigaIzdanje"value="<?php echo "$k->Trajanje";?>">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="knjigaTiraz" class="col-sm-2  control-label">Tiraž:</label>
+                    <label for="knjigaTiraz" class="col-sm-2  control-label">Cena:</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaTiraz" placeholder="Unesite tiraž..."  id="knjigaTiraz"value="<?php echo "$k->knjigaTiraz";?>">
+                      <input type="text" class="form-control" name="Cena" placeholder="Unesite tiraž..."  id="knjigaTiraz"value="<?php echo "$k->Cena";?>">
                     </div>
                   </div>
-
-
-
-                  <div class="form-group">
-                    <label for="knjigaStanje" class="col-sm-2  control-label">Količina:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="knjigaStanje" placeholder="Unesite količinu..." id="knjigaStanje" value="<?php echo "$k->knjigaStanje";?>">
-                    </div>
-                  </div>
-
-
-
                   <div class="form-group">
                     <label class="col-sm-2 control-label"></label>
                     <div class="col-sm-8">
                       <button type="submit" name="sacuvaj" class="btn btn-success">Sačuvaj izmene</button>
                     </div>
                   </div>
+                  <br>
                   <br>
               </form>
           </div>

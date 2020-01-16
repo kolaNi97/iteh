@@ -71,8 +71,8 @@ require "korisnik/template/header.php";
           <div class="post_body3">
              <br>
               <?php
-                  $korisnik = $_SESSION['username'];
-                  $url = 'http://localhost/projekat/kupovina/'. $korisnik .'.json';
+                  $id = $_SESSION['id'];
+                  $url = 'http://localhost/projekat/kupovina/'. $id .'.json';
                   $curl = curl_init($url);
                   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -87,32 +87,18 @@ require "korisnik/template/header.php";
                   <table id="listakupovina">
                       <thead>
                           <tr>
-                              <th>Naziv knjige</th>
+                              <th>Naziv filma</th>
                               <th>Datum</th>
-                              <th></th>
-
                           </tr>
                       </thead>
                       <tbody id="ajaxPodaci">
                           <?php
                               foreach($json_objekat->kupovina as $kupovina) {
-                              	$knjigaID=$kupovina->knjigaID;
-                              	$url = 'http://localhost/projekat/knjige/'. $knjigaID .'.json';
-                  $curl = curl_init($url);
-                  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
-                  curl_setopt($curl, CURLOPT_HTTPGET, true);
-
-                  $curl_odgovor = curl_exec($curl);
-                  curl_close($curl);
-                  $json_objekat = json_decode($curl_odgovor);
-
-              $knjiga=$json_objekat;
-
+                              	
                                   echo "<tr>
-                                          <td>$knjiga->knjigaNaziv</td>
-                                          <td>$kupovina->datum</td>
-                                          <td><a href='deleteKup.php?kupovinaID=". $kupovina->kupovinaID ."'><button  class='btn btn-primary'>Obriši Kupovinu</button></a></td>
+                                          <td>$kupovina->NazivFilma</td>
+                                          <td>$kupovina->Datum</td>
+                                          <td><a href='deleteKup.php?kupovinaID=". $kupovina->KupovinaID ."'><button  class='btn btn-primary'>Obriši Kupovinu</button></a></td>
 
                                       </tr>";
                               }

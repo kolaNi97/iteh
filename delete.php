@@ -1,6 +1,6 @@
 <?php
-    $knjigaID = $_GET['knjigaID'];
-    $url = 'http://localhost/projekat/knjiga/'. $knjigaID;
+    $filmID = $_GET['filmID'];
+    $url = 'http://localhost/projekat/film/'. $filmID;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));

@@ -27,7 +27,7 @@
             $this->dblink->set_charset("utf8");
         }
 
-       function select ($table="proizvodi", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $where = null, $order = null)
+       function select ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $where = null, $order = null)
 {
     $q = 'SELECT '.$columns.' FROM '.$table;  
             if($join_table !=null)
@@ -35,10 +35,10 @@
             if($where != null)  
                 $q .= ' WHERE '.$where;  
             if($order != null)  
-                $q .= ' ORDER BY '.$order;                  
+                $q .= ' ORDER BY '.$order;  
     $this->ExecuteQuery($q);
 }
-function select2 ($table="proizvodi", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$where = null, $order = null)
+function select2 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$where = null,$order = null, $group = null)
 {
     $q = 'SELECT '.$columns.' FROM '.$table;  
             if($join_table !=null)
@@ -48,13 +48,34 @@ function select2 ($table="proizvodi", $columns = '*', $join_table=" ", $join_key
                 $q .= ' JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
             if($where != null)  
                 $q .= ' WHERE '.$where;  
+                if($order != null)  
+                $q .= ' ORDER BY '.$order; 
+                if($group != null)  
+                $q .= ' GROUP BY '.$group; 
+
+    $this->ExecuteQuery($q);
+}
+function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$join_table3=" ", $join_key5=" ", $join_key6=" ",$where = null, $order = null,$group = null)
+{
+    $q = 'SELECT '.$columns.' FROM '.$table;  
+            if($join_table !=null)
+                $q .= ' JOIN '.$join_table.' ON '.$table.'.'.$join_key1.' = '.$join_table.'.'.$join_key2;
+            
+             if($join_table2 !=null)
+                $q .= ' JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
+                if($join_table3 !=null)
+                $q .= ' JOIN '.$join_table3.' ON '.$table.'.'.$join_key5.' = '.$join_table3.'.'.$join_key6;
+            if($where != null)  
+                $q .= ' WHERE '.$where;  
             if($order != null)  
                 $q .= ' ORDER BY '.$order; 
+                if($group != null)  
+                $q .= ' GROUP BY'.$group; 
 
     $this->ExecuteQuery($q);
 }
 
-        function insert($table = "knjiga", $rows = "knjigaNaziv,knjigaIzdanje,knjigaTiraz,knjigaStanje,pisacID", $values) {
+        function insert($table = "knjiga", $rows, $values) {
                 $query_values = implode(',',$values);
                 $insert = 'INSERT INTO '. $table;
                 if($rows != null) {
@@ -73,7 +94,7 @@ function select2 ($table="proizvodi", $columns = '*', $join_table=" ", $join_key
             	$set_query[] = $keys[$i] ." = '". $values[$i] ."'";
             }
             $set_query_string = implode(',',$set_query);
-            $update = "UPDATE ". $table ." SET ". $set_query_string ." WHERE knjigaID=". $id;
+            $update = "UPDATE ". $table ." SET ". $set_query_string ." WHERE FilmID=". $id;
             if(($this->ExecuteQuery($update)) && ($this->affected > 0))
                 return true;
             else

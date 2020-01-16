@@ -6,20 +6,17 @@ require "admin/template/header.php";
 <script>
        function pretrazi(tekst) {
            var bodyTabele = document.getElementById('ajaxPodaci');
-           var url = "http://localhost/projekat/knjiga/'.$pisacID.'.json?search="+ tekst;
+           var url = "http://localhost/projekat/film/'.$reziserID.'.json?search="+ tekst;
            $.getJSON(url, function(odgovorServisa) {
                bodyTabele.innerHTML = "";
                $.each(odgovorServisa.knjiga,function(i, knjiga) {
                    $("#ajaxPodaci").append("<tr>"+
-                           "<td><a href='updateKnjiga.php?knjigaID="+ knjiga.knjigaID +"'><button class='btn btn-info'>Izmena</button></a></td>"+
-                           "<td>"+ knjiga.knjigaNaziv +"</td> "+
-                           "<td>"+ knjiga.knjigaIzdanje +"</td>"+
-                           "<td>"+ knjiga.knjigaTiraz +"</td>"+
-
-                           "<td>"+ knjiga.knjigaStanje +"</td>" +
-                           "<td>"+ knjiga.pisacIme + " " +knjiga.pisacPrezime +"</td>" +
-
-                           "<td><a href='delete.php?knjigaID="+ knjiga.knjigaID +"'><button class='btn btn-danger'>Brisanje</button></a></td>"+
+                           "<td><a href='updateKnjiga.php?filmID=" + film.FilmID +"'><button class='btn btn-info'>Izmeni</button></a></td>"+
+                           "<td>"+ film.NazivFilma +"</td> "+
+                           "<td>"+ film.Trajanje +"</td>"+
+                           "<td>"+ film.Cena +"</td>"+
+                           "<td>"+ film.Ime + " " +film.Prezime +"</td>" +
+                           "<td><a href='delete.php?knjigaID="+ film.FilmID +"'><button class='btn btn-danger'>Brisanje</button></a></td>"+
                            "</tr>");
                })
            });
@@ -59,7 +56,7 @@ require "admin/template/header.php";
                          <input type="text" name="textSearch" id="textSearch" onkeyup="pretrazi(this.value)" style="color:#000;">
                      </div> <br>
                      <?php
-                         $url = 'http://localhost/projekat/knjiga.json';
+                         $url = 'http://localhost/projekat/film.json';
                          $curl = curl_init($url);
                          curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                          curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -74,27 +71,24 @@ require "admin/template/header.php";
                              <thead>
                                  <tr>
                                      <th>Izmena</th>
-                                     <th>Naziv knjige</th>
-                                     <th>Izdanje</th>
-                                     <th>Tiraž</th>
-
-                                     <th>Stanje na lageru</th>
-                                     <th>Ime i prezime pisca</th>
+                                     <th>Naziv filma</th>
+                                     <th>Trajanje</th>
+                                     <th>Cena(RSD)</th>
+                                     <th>Režiser</th>
                                      <th>Brisanje</th>
                                  </tr>
                              </thead>
                              <tbody id="ajaxPodaci">
                                  <?php
-                                     foreach($json_objekat->knjiga as $knjiga) {
+                                     foreach($json_objekat->film as $film) {
                                          echo "<tr>
-                                                 <td><a href='updateKnjiga.php?knjigaID=". $knjiga->knjigaID ."'><button class='btn btn-info'>Izmeni</button></a></td>
-                                                 <td>$knjiga->knjigaNaziv</td>
-                                                 <td>$knjiga->knjigaIzdanje</td>
-                                                 <td>$knjiga->knjigaStanje</td>
-                                                 <td>$knjiga->knjigaCena</td>
-                                                 <td>$knjiga->pisacIme $knjiga->pisacPrezime</td>
+                                                 <td><a href='updateKnjiga.php?filmID=". $film->FilmID ."'><button class='btn btn-info'>Izmeni</button></a></td>
+                                                 <td>$film->NazivFilma</td>
+                                                 <td>$film->Trajanje</td>
+                                                 <td>$film->Cena</td>
+                                                 <td>$film->Ime $film->Prezime</td>
 
-                                                 <td><a href='delete.php?knjigaID=". $knjiga->knjigaID ."'><button class='btn btn-danger'>Obriši</button></a></td>
+                                                 <td><a href='delete.php?filmID=". $film->FilmID ."'><button class='btn btn-danger'>Obriši</button></a></td>
                                              </tr>";
                                      }
                                  ?>

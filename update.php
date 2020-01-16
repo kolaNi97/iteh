@@ -1,18 +1,18 @@
 <?php
-    $knjigaUpdate;
-    $knjigaID = $_GET['knjigaID'];
-    if(isset($_POST['knjigaNaziv']) && isset($_POST['knjigaIzdanje']) && isset($_POST['knjigaTiraz'])  && isset($_POST['knjigaStanje']) && isset($_POST['pisac'])) {
-        $knjigaUpdate = '{"knjigaNaziv": "'. $_POST['knjigaNaziv'] .'","knjigaIzdanje": "'. $_POST['knjigaIzdanje'] .'", "knjigaTiraz":"'. $_POST['knjigaTiraz'] .'", "knjigaStanje":"'. $_POST['knjigaStanje'] .'","pisacID":"'. $_POST['pisac'] .'"}';
+    $filmUpdate;
+    $filmID = $_GET['filmID'];
+    if(isset($_POST['NazivFilma']) && isset($_POST['Trajanje']) && isset($_POST['Cena']) ) {
+        $filmUpdate = '{"NazivFilma": "'. $_POST['NazivFilma'] .'","Trajanje": "'. $_POST['Trajanje'] .'", "Cena":"'. $_POST['Cena'] .'","ReziserID":"'. $_POST['Reziser'] .'"}';
     }
     else {
-        $knjigaUpdate = '{"Greška, nisu uneti svi podaci!"}';
+        $filmUpdate = '{"Greška, nisu uneti svi podaci!"}';
     }
-    $url = 'http://localhost/projekat/knjiga/'. $knjigaID;
+    $url = 'http://localhost/projekat/film/'. $filmID;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $knjigaUpdate);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $filmUpdate);
 
     $curl_odgovor = curl_exec($curl);
     curl_close($curl);
