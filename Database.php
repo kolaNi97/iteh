@@ -27,7 +27,7 @@
             $this->dblink->set_charset("utf8");
         }
 
-       function select ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $where = null, $order = null)
+       function select ($table="registracija", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $where = null, $order = null)
 {
     $q = 'SELECT '.$columns.' FROM '.$table;  
             if($join_table !=null)
@@ -38,7 +38,7 @@
                 $q .= ' ORDER BY '.$order;  
     $this->ExecuteQuery($q);
 }
-function select2 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$where = null,$order = null, $group = null)
+function select2 ($table="registracija", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$where = null,$order = null, $group = null)
 {
     $q = 'SELECT '.$columns.' FROM '.$table;  
             if($join_table !=null)
@@ -55,16 +55,16 @@ function select2 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1="
 
     $this->ExecuteQuery($q);
 }
-function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$join_table3=" ", $join_key5=" ", $join_key6=" ",$where = null, $order = null,$group = null)
+function select3 ($table="registracija", $columns = '*', $join_table=" ", $join_key1=" ", $join_key2=" ", $join_table2=" ", $join_key3=" ", $join_key4=" ",$join_table3=" ", $join_key5=" ", $join_key6=" ",$where = null, $order = null,$group = null)
 {
     $q = 'SELECT '.$columns.' FROM '.$table;  
             if($join_table !=null)
                 $q .= ' JOIN '.$join_table.' ON '.$table.'.'.$join_key1.' = '.$join_table.'.'.$join_key2;
             
              if($join_table2 !=null)
-                $q .= ' LEFT JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
+                $q .= ' JOIN '.$join_table2.' ON '.$table.'.'.$join_key3.' = '.$join_table2.'.'.$join_key4;
                 if($join_table3 !=null)
-                $q .= ' LEFT JOIN '.$join_table3.' ON '.$table.'.'.$join_key5.' = '.$join_table3.'.'.$join_key6;
+                $q .= ' JOIN '.$join_table3.' ON '.$table.'.'.$join_key5.' = '.$join_table3.'.'.$join_key6;
             if($where != null)  
                 $q .= ' WHERE '.$where;  
             if($order != null)  
@@ -74,8 +74,14 @@ function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1="
 
     $this->ExecuteQuery($q);
 }
+function select4() {
+    $q='SELECT Film.NazivFilma, Film.Trajanje, 225-count(kupovina.rezervacijaID) AS BrojSlobodnih,Film.Cena,Rezervacija.Datum,Rezervacija.RezervacijaID
+    from rezervacija join film on (rezervacija.FilmID=film.FilmID) left join kupovina on (kupovina.RezervacijaID=rezervacija.RezervacijaID)
+    group by rezervacija.RezervacijaID';
+        $this->ExecuteQuery($q);
+}
 
-        function insert($table = "knjiga", $rows, $values) {
+        function insert($table = "registracija", $rows, $values) {
                 $query_values = implode(',',$values);
                 $insert = 'INSERT INTO '. $table;
                 if($rows != null) {
@@ -88,7 +94,7 @@ function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1="
                     return false;
         }
 
-        function update($table = "knjiga", $id, $keys, $values) {
+        function update($table = "registracija", $id, $keys, $values) {
             $set_query = array();
             for ($i = 0; $i < sizeof($keys); $i++) {
             	$set_query[] = $keys[$i] ." = '". $values[$i] ."'";
@@ -101,7 +107,7 @@ function select3 ($table="knjiga", $columns = '*', $join_table=" ", $join_key1="
                 return false;
         }
 
-        function delete($table = "knjiga", $keys, $values) {
+        function delete($table = "registracija", $keys, $values) {
             $delete = "DELETE FROM ". $table ." WHERE ". $keys[0] ." = '". $values[0] ."'";
             if ($this->ExecuteQuery($delete))
                 return true;

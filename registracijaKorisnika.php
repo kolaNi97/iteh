@@ -112,7 +112,7 @@ if (isset($_POST['registracija'])) {
             <?php
                 if(isset($_GET['poruka'])) {
                     $staPrikazati = $_GET['poruka'];
-                    if($staPrikazati == "Uspešno ste dodali novu knjigu!") {
+                    if($staPrikazati == "Uspešno ste dodali nov film!") {
                       ?>    <div class="alert alert-info alert-dismissible" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <strong> <?php echo $t  ?> </strong>
                           </div>
@@ -174,7 +174,7 @@ if (isset($_POST['registracija'])) {
                 </div>              </div>
 
 
-		<button type="submit" name="registracija" class="btn btn-success">Sačuvaj izmene</button>
+		<button type="submit" name="registracija" class="btn btn-primary">Sačuvaj izmene</button>
     <br><br><br><br><br>
 
 

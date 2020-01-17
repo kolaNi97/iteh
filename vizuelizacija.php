@@ -12,7 +12,7 @@ require "admin/template/header.php";
          <br>
           <div class="post" style="width:900px;">
               <?php
-                  $urlZaSB = 'http://localhost/projekat/pisac.json';
+                  $urlZaSB = 'http://localhost/projekat/reziser.json';
                   $curlZaSB = curl_init($urlZaSB);
                   curl_setopt($curlZaSB, CURLOPT_RETURNTRANSFER, true);
                   curl_setopt($curlZaSB, CURLOPT_HTTPHEADER, array('Accept: application/json','Content-Type: application/json'));
@@ -26,12 +26,12 @@ require "admin/template/header.php";
 
               <div style="float:left;">
                   <form name="forma" method="GET">
-                      <label for="imePisac" style="color:#fff;">Izaberi pisca:</label>
-                      <select id="knjiga" name="knjiga"style="width:150px;">
+                      <label for="reziser" style="color:#fff;">Izaberi rezisera:</label>
+                      <select id="reziser" name="reziser"style="width:150px;">
                           <option value="" selected="selected"></option>
                           <?php
-                          foreach($odgovorOdServisa->pisac as $pisac) {
-                            echo "<option value='$pisac->pisacID'>$pisac->pisacPrezime</option>";
+                          foreach($odgovorOdServisa->reziser as $reziser) {
+                            echo "<option value='$reziser->ReziserID'>$reziser->Prezime</option>";
                           }
                           ?>
                       </select>

@@ -9,7 +9,6 @@ $rezervacijaID = $_GET['rezervacijaID'];
 $korisnik =$_SESSION['username'];
 $korisnikID = $_SESSION['id'];
 
-//$url='http://localhost/projekat/knjiga/'.$knjigaID;
 //$datum = date("Y/m/d");
 
     if(isset($rezervacijaID) && isset($korisnikID) ) {

@@ -19,16 +19,11 @@ require "admin/template/header.php";
     <img src="img/AdminPanel.png">
     <br>
           </div>
-            <div class="col-sm-5" style="padding-bottom:330px">
+            <div class="col-sm-5" style="padding-bottom:40%">
 
             <h2> Dobro došli, <?php echo $_SESSION['username'] ?>, izaberite neku od opcija za ažuriranje sadržaja! </h2>
-
         </div>
-
   </div>
-
-
-
 </div>
 
 

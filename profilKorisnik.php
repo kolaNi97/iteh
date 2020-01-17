@@ -12,26 +12,6 @@ if (!$korisnik->SetUserData($_SESSION['username'])) {
 }
 require "korisnik/template/header.php";
 ?>
-<script>
-       function pretrazi(tekst) {
-           var bodyTabele = document.getElementById('ajaxPodaci');
-           var url = "http://localhost/projekat/kupovina/'.$username.'.json?search="+ tekst;
-           $.getJSON(url, function(odgovorServisa) {
-               bodyTabele.innerHTML = "";
-               $.each(odgovorServisa.kupovina,function(i, kupovina) {
-                   $("#ajaxPodaci").append("<tr>"+
-
-                           "<td>"+ kupovina.knjigaID +"</td>"+
-                          "<td>"+ kupovina.kolicina +"</td>"+
-                           "<td>"+ kupovina.korisnik +"</td>" +
-                           "<td>"+ kupovina.datum "</td>" +
-
-
-                           "</tr>");
-               })
-           });
-       }
-   </script>
 <div class="profil">
 	<center>
 		<b><?php echo $t;?></b>

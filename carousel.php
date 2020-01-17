@@ -14,25 +14,13 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="img/boook.jpg" alt="books1">
+      <img src="img/9.jpg" alt="film1">
     </div>
     <div class="item">
-      <img src="img/book1.jpg" alt="books2">
+      <img src="img/10.jpg" alt="film2">
     </div>
     <div class="item">
-      <img src="img/book2.jpg" alt="books2">
-    </div>
-    <div class="item">
-      <img src="img/book3.jpg" alt="books3">
-    </div>
-    <div class="item">
-      <img src="img/book4.jpg" alt="books4">
-    </div>
-    <div class="item">
-      <img src="img/book5.jpg" alt="books5">
-    </div>
-    <div class="item">
-      <img src="img/books6.jpg" alt="books6">
+      <img src="img/11.jpg" alt="film3">
     </div>
   </div>
 

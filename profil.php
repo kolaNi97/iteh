@@ -47,7 +47,3 @@ require "admin/template/header.php";
 	</center>
 </div>
 
-
-<?php
-require "admin/template/footer.php";
-?>

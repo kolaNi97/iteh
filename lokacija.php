@@ -7,7 +7,7 @@ require "korisnik/template/header.php";
 <script>
     function initialize() {
         var mapOptions = {
-            center: new google.maps.LatLng(44.7981873,20.4689813),
+            center: new google.maps.LatLng(44.772982,20.475144),
             zoom: 13,
             zoomControl: true,
             zoomControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT }
@@ -21,7 +21,7 @@ require "korisnik/template/header.php";
                 kreirajMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(marker.latitude,marker.longitude),
                     map: map,
-                    icon: 'img/book1.png',
+                    icon: 'img/fonLogo.png',
                     title: marker.naziv
                 });
             })
@@ -34,7 +34,7 @@ require "korisnik/template/header.php";
     <div class="container">
       <div class="row">
         <div class="row_header">
-          <h1>Dobrodošli u BookCorner!</h1>
+          <h1>Dobrodošli u Bioskop FON!</h1>
           <br> <br> <br>
         </div>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -49,7 +49,7 @@ require "korisnik/template/header.php";
                   <div class="cta-inner text-center rounded">
         <h2 class="section-heading mb-5">
           
-          <span class="section-heading-lower">Posetite nas</span>
+          <span class="section-heading-lower" id = "posetite">Posetite nas</span>
         </h2>
         <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
           <li class="list-unstyled-item list-hours-item d-flex today">
@@ -82,47 +82,58 @@ require "korisnik/template/header.php";
           </li>
 
         </ul>
+
+        <script>
+								function tekst() {
+									$.ajax({
+									url: "tekst.php",
+									type: "post",
+									success: function(data) {
+											document.getElementById("posetite").innerHTML = data;
+
+									}
+									});
+									document.getElementById("prikazi").style.visibility = "hidden";
+								}
+              </script>
+              
+
+                
         <p class="address mb-5">
           <em>
-            <strong>Kneza Miloša 43</strong>
+            <strong >Jove Ilića 154</strong>
           </em>
         </p><p class="address mb-5">
           <em>
-            <strong>Bulevar Kralja Aleksandra 53 </strong>
+            <strong>Bulevar Mihajla Pupina 4 </strong>
           </em>
         </p></p><p class="address mb-5">
           <em>
-            <strong> Bulevar Oslobođenja 219</strong>
-          </em>
-        </p></p><p class="address mb-5">
-          <em>
-            <strong> Gospodara Vučića 78</strong>
-          </em>
-        </p>
-        <p class="address mb-5">
-          <em>
-            <strong>Bulevar Mihajla Pupina 17</strong>
+            <strong> Višnjička 84</strong>
             <br> 11 000, BEOGRAD
           </em>
-        </p>
+        </p></p>
         <p class="mb-0">
           <large>
             <em>Pozovite:</em>
           </large>
           <br>
-          (+381) 11 3252-464<br>
-          (+381) 64 564-23-86
+          (+381) 11 2351-964<br>
+          (+381) 61 34-45-28
         </p>
         <p class="mb-0">
           <large>
             <em><br>Imate neka pitanja za nas? Posaljite nam mejl:</em><br>
           </large>
-          <a href="kontakt@knjizaraMS.rs">kontakt@knjizaraMS.rs</a>
+          <a href="kontakt@bioskopFON.rs">kontakt@bioskopFON.rs</a>
         </p>
       </div>
 
                   </div>
+                  <button class="btn btn-primary" id = "prikazi" style = "margin-left: 1%; margin-top: 2%;" onclick = "tekst()">Klikni da vidiš magiju!</button>
+
       </div>
+      
     </div>
   </body>
 

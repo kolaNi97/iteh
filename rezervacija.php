@@ -5,14 +5,13 @@ require "korisnik/template/header.php";
    <div class="row">
 
      <div class="row_header">
-       <h1>Kupite knjige</h1>
+       <h1>Rezervisite Vašu kartu!</h1>
        <br>
      </div>
                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:480px;">
 
                  <div class="post2">
                  <?php
-   echo '<script>console.log('.$_SESSION['id'].')</script>';
 ?>
                    <?php
                        if(isset($_GET['poruka'])) {
@@ -45,7 +44,7 @@ require "korisnik/template/header.php";
                          $json_objekat = json_decode($curl_odgovor);
                      ?>
                      <div class="datagrid" style="max-height:500px;">
-                         <table id="listaKnjiga">
+                         <table id="listaFilmova">
                              <thead>
                                  <tr>
                                      <th>Naziv filma</th>
@@ -61,11 +60,10 @@ require "korisnik/template/header.php";
                                      foreach($json_objekat->rezervacija as $rezervacija) {
                                          echo "<tr>
                                                  <td>$rezervacija->NazivFilma</td>
-                                                 <td>$rezervacija->Trajanje</td>
+                                                 <td>$rezervacija->Trajanje minuta</td>
                                                  <td>$rezervacija->BrojSlobodnih</td>
                                                  <td>$rezervacija->Cena</td>
                                                  <td>$rezervacija->Datum</td>
-
                                                  ";
 
               if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {

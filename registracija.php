@@ -175,7 +175,7 @@ if (isset($_POST['registracija'])) {
               </div>
 
 
-		<button type="submit" name="registracija" class="btn btn-success">Sačuvaj izmene</button>
+		<button type="submit" name="registracija" class="btn btn-primary">Sačuvaj izmene</button>
     <br><br><br><br><br>
 
 
