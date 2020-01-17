@@ -11,6 +11,8 @@
     $json_objekat = json_decode($curl_odgovor);
 
     if (isset($json_objekat)) {
+
+        
             header("Location: izmenaBrisanje.php?poruka=$json_objekat->poruka");
     }
 ?>
